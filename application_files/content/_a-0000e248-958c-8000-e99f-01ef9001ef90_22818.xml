@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e505-a053-8000-29a4-01ef9001ef90_19849</versionUuid>
+    <rule>
+        <name>APP_viewEmailsFromDB</name>
+        <uuid>_a-0000e248-958c-8000-e99f-01ef9001ef90_22818</uuid>
+        <description></description>
+        <parentUuid>_a-0000e246-1655-8000-e99f-01ef9001ef90_22455</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+    startIndex: 1,
+    batchSize: 20,
+    sort: #"SYSTEM_SYSRULES_sortInfo"(
+      field: "APP_MAIL_POLLER_ID",
+      ascending: false
+    )
+  ),
+  with(
+    local!datasubset: #"SYSTEM_SYSRULES_queryEntity_v1"(
+      entity: #"_a-0000e246-1655-8000-e99f-01ef9001ef90_22460",
+      query: #"SYSTEM_SYSRULES_query"(
+        selection: #"SYSTEM_SYSRULES_querySelection"(columns: {
+          #"SYSTEM_SYSRULES_queryColumn"(field: "APP_MAIL_POLLER_ID"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "FROM_EMAIL"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "FROM_NAME"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "SUBJECT"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "DOC_ID"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "TO_EMAILS"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "TO_NAMES"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "CC_EMAILS"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "CC_NAMES"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "RECEIVED_DATE"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "SYS_DATE"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "IMPORTANCE")
+        }),
+        pagingInfo: local!pagingInfo
+      ),
+      fetchTotalCount: true
+    ),
+    {
+      #"SYSTEM_SYSRULES_gridField"(
+        totalCount: local!datasubset.totalCount,
+        columns: {
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "APP MAIL POLLER ID",
+            field: "APP_MAIL_POLLER_ID",
+            data: index(local!dataSubset.data, "APP_MAIL_POLLER_ID", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "FROM EMAIL",
+            field: "FROM_EMAIL",
+            data: index(local!dataSubset.data, "FROM_EMAIL", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "FROM NAME",
+            field: "FROM_NAME",
+            data: index(local!dataSubset.data, "FROM_NAME", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "SUBJECT",
+            field: "SUBJECT",
+            data: index(local!dataSubset.data, "SUBJECT", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "DOC ID",
+            field: "DOC_ID",
+            data: index(local!dataSubset.data, "DOC_ID", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "TO EMAILS",
+            field: "TO_EMAILS",
+            data: index(local!dataSubset.data, "TO_EMAILS", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "TO NAMES",
+            field: "TO_NAMES",
+            data: index(local!dataSubset.data, "TO_NAMES", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "CC EMAILS",
+            field: "CC_EMAILS",
+            data: index(local!dataSubset.data, "CC_EMAILS", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "CC NAMES",
+            field: "CC_NAMES",
+            data: index(local!dataSubset.data, "CC_NAMES", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "RECEIVED DATE",
+            field: "RECEIVED_DATE",
+            data: index(local!dataSubset.data, "RECEIVED_DATE", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "SYS DATE",
+            field: "SYS_DATE",
+            data: index(local!dataSubset.data, "SYS_DATE", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "IMPORTANCE",
+            field: "IMPORTANCE",
+            data: index(local!dataSubset.data, "IMPORTANCE", null)
+          )
+        },
+        value: local!pagingInfo,
+        saveInto: local!pagingInfo
+      )
+    }
+  )
+)
+</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e248-958c-8000-e99f-01ef9001ef90_22862"/>
+        <historyInfo versionUuid="_a-0000e505-a053-8000-29a4-01ef9001ef90_19849"/>
+    </history>
+</contentHaul>

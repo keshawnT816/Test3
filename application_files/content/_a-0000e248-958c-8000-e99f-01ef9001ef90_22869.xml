@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentHaul xmlns:a="http://www.appian.com/ae/types/2009">
+    <versionUuid>_a-0000e248-958c-8000-e99f-01ef9001ef90_22880</versionUuid>
+    <rule>
+        <name>APP_viewEmailDocsFromDB</name>
+        <uuid>_a-0000e248-958c-8000-e99f-01ef9001ef90_22869</uuid>
+        <description></description>
+        <parentUuid>_a-0000e246-1655-8000-e99f-01ef9001ef90_22455</parentUuid>
+        <visibility>
+            <advertise>false</advertise>
+            <hierarchy>true</hierarchy>
+            <indexable>true</indexable>
+            <quota>false</quota>
+            <searchable>true</searchable>
+            <system>false</system>
+            <unlogged>false</unlogged>
+        </visibility>
+        <definition>load(
+  local!pagingInfo: #"SYSTEM_SYSRULES_pagingInfo"(
+    startIndex: 1,
+    batchSize: 20,
+    sort: #"SYSTEM_SYSRULES_sortInfo"(
+      field: "APP_MAIL_POLLER_ID",
+      ascending: true
+    )
+  ),
+  with(
+    local!datasubset: #"SYSTEM_SYSRULES_queryEntity_v1"(
+      entity: #"_a-0000e248-958c-8000-e99f-01ef9001ef90_22863",
+      query: #"SYSTEM_SYSRULES_query"(
+        selection: #"SYSTEM_SYSRULES_querySelection"(columns: {
+          #"SYSTEM_SYSRULES_queryColumn"(field: "APP_MAIL_POLLER_ID"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "ELT"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "APP_MAIL_POLLER_DOC_ID"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "DOC_IDX"),
+          #"SYSTEM_SYSRULES_queryColumn"(field: "SYS_DATE"),
+        }),
+        pagingInfo: local!pagingInfo
+      ),
+      fetchTotalCount: true
+    ),
+    {
+      #"SYSTEM_SYSRULES_gridField"(
+        totalCount: local!datasubset.totalCount,
+        columns: {
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "APP MAIL POLLER ID",
+            field: "APP_MAIL_POLLER_ID",
+            data: index(local!dataSubset.data, "APP_MAIL_POLLER_ID", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "ELT",
+            field: "ELT",
+            data: index(local!dataSubset.data, "ELT", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "APP MAIL POLLER DOC ID",
+            field: "APP_MAIL_POLLER_DOC_ID",
+            data: index(local!dataSubset.data, "APP_MAIL_POLLER_DOC_ID", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "DOC IDX",
+            field: "DOC_IDX",
+            data: index(local!dataSubset.data, "DOC_IDX", null)
+          ),
+          #"SYSTEM_SYSRULES_gridTextColumn"(
+            label: "SYS DATE",
+            field: "SYS_DATE",
+            data: index(local!dataSubset.data, "SYS_DATE", null)
+          )
+        },
+        value: local!pagingInfo,
+        saveInto: local!pagingInfo
+      )
+    }
+  )
+)
+</definition>
+        <preferredEditor>interface</preferredEditor>
+        <offlineEnabled>false</offlineEnabled>
+    </rule>
+    <roleMap public="true">
+        <role inherit="true" allowForAll="false" name="readers">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="authors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="true" allowForAll="false" name="administrators">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyReaders">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAuthors">
+            <users/>
+            <groups/>
+        </role>
+        <role inherit="false" allowForAll="false" name="denyAdministrators">
+            <users/>
+            <groups/>
+        </role>
+    </roleMap>
+    <history>
+        <historyInfo versionUuid="_a-0000e248-958c-8000-e99f-01ef9001ef90_22880"/>
+    </history>
+</contentHaul>
